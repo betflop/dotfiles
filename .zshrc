@@ -135,3 +135,7 @@ export NVM_DIR="$HOME/.nvm"
 
 eval "$(direnv hook zsh)"
 alias ll="ls -aoF"
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+[[ "$PATH" == *"$HOME/bin:"* ]] || export PATH="$HOME/bin:$PATH"
+! { which werf | grep -qsE "^/Users/pavelkozlov/.trdl/"; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "1.2" "stable")
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
