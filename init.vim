@@ -1,0 +1,456 @@
+set encoding=UTF-8
+set number
+set noswapfile
+set relativenumber
+set clipboard=unnamedplus
+set clipboard+=unnamedplus
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+set background=dark
+set colorcolumn=79
+set mouse=a
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set list
+set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\ 
+" set autochdir
+
+if (has('termguicolors'))
+	set termguicolors
+endif
+
+let NERDTreeShowHidden=1
+
+inoremap <C-Space> <C-x><C-o>
+imap <buffer> <Nul> <C-Space>
+smap <buffer> <Nul> <C-Space>" filetype plugin on
+
+let g:airline_theme = "molokai"
+
+call plug#begin('~/.config/nvim')
+Plug 'rafamadriz/friendly-snippets'
+Plug 'Mofiqul/dracula.nvim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
+Plug 'https://github.com/vim-airline/vim-airline'
+Plug 'https://github.com/ap/vim-css-color'
+Plug 'preservim/NERDTree'
+Plug 'tpope/vim-commentary'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'MattesGroeger/vim-bookmarks'
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'typescriptreact', 'javascriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+
+Plug 'preservim/vim-indent-guides'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'raimondi/delimitmate'
+
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'towolf/vim-helm'
+Plug 'pearofducks/ansible-vim'
+" Plug 'puremourning/vimspector'
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
+" Plug 'tell-k/vim-autopep8'
+Plug 'mfussenegger/nvim-lint'
+Plug 'hashivim/vim-terraform'
+call plug#end()
+
+" gggpG
+au FileType python setlocal formatprg=autopep8\ -
+" au FileType javascript setlocal formatprg=prettier\ --parser\ typescript
+if has("autocmd")
+    autocmd BufWritePost *.py silent! !autopep8 -i %
+endif
+
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+                \ 'Modified'  :'*',
+                \ 'Staged'    :'✚',
+                \ 'Untracked' :'✭',
+                \ 'Renamed'   :'➜',
+                \ 'Unmerged'  :'═',
+                \ 'Deleted'   :'✖',
+                \ 'Dirty'     :'✗',
+                \ 'Ignored'   :'☒',
+                \ 'Clean'     :'✔︎',
+                \ 'Unknown'   :'?',
+                \ }
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#quickfix_enabled = 0
+
+let g:go_fmt_autosave = 1
+
+let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_base_dir='/Users/pavelkozlov/.config/nvim/vimspector'
+
+nmap <C-e> :NERDTreeToggle<CR>
+noremap '/ :Commentary<CR>
+nnoremap ,<space> :nohlsearch<CR>
+nnoremap <S-F8> :LspStart<CR>
+map bn :bn<cr>
+map bp :bp<cr>
+map bd :bd<cr>
+map td :tabclose<cr>
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:syntastic_check_on_open=1
+let g:user_emmet_leader_key='<tab>'
+" tab + ,
+
+augroup remember_folds
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
+map <Enter> o<ESC>
+
+" Telescope bindings
+nnoremap ,f <cmd>Telescope find_files<cr>
+nnoremap ,g <cmd>Telescope live_grep<cr>
+nnoremap ,b <cmd>Telescope buffers<cr>
+
+let g:indent_guides_enable_on_vim_startup = 1
+
+lua << EOF
+
+vim.cmd[[colorscheme dracula]]
+vim.cmd [[autocmd BufRead,BufNewFile Docker* set filetype=dockerfile]]
+
+-- require('telescope').load_extension('fzf')
+
+-- require("telescope").setup { 
+
+--     pickers = {
+-- 	find_files = {
+--             hidden = true
+-- 	    },
+--         live_grep = {
+--             additional_args = function(opts)
+--                 return {"--hidden"}
+--             end,
+--         },
+--     },
+-- }
+
+
+EOF
+
+
+
+lua << EOF
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+
+local luasnip = require 'luasnip'
+local async = require "plenary.async"
+
+local cmp = require 'cmp'
+cmp.setup({
+completion = {
+	-- autocomplete = {true}
+    autocomplete = { cmp.TriggerEvent.InsertEnter, cmp.TriggerEvent.TextChanged },
+	},
+snippet = {
+	expand = function(args)
+	require('luasnip').lsp_expand(args.body)
+	end,
+	},
+mapping = {
+	['<C-p>'] = cmp.mapping.select_prev_item(),
+	['<C-n>'] = cmp.mapping.select_next_item(),
+	['<C-d>'] = cmp.mapping.scroll_docs(-4),
+	['<C-f>'] = cmp.mapping.scroll_docs(4),
+	['<C-space>'] = cmp.mapping.complete(),
+	['<C-e>'] = cmp.mapping.close(),
+	['<CR>'] = cmp.mapping.confirm {
+		behavior = cmp.ConfirmBehavior.Replace,
+		select = false,
+		},
+
+
+ ['<Tab>'] = function(fallback)
+ 	if vim.fn.pumvisible() == 1 then
+ 		vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+ 	else
+ 		fallback()
+ 	end
+ 	end,
+ 	['<S-Tab>'] = function(fallback)
+ 	if vim.fn.pumvisible() == 1 then
+ 	    vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+ 	elseif luasnip.expand_or_jumpable() then
+ 	    vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+ 	elseif luasnip.jumpable(-1) then
+ 	    vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+ 	else
+ 	    fallback()
+ 	end
+ 	end,
+	},
+sources = {
+	{ name = 'nvim_lsp' },
+	{ name = 'luasnip' },
+	},
+formatting = {
+	format = function(entry, vim_item)
+	vim_item.kind = ({
+	Text = "Text",
+	Method = "Method",
+	Function = "Function",
+	Constructor = "Constructor",
+	Field = "Field",
+	Variable = "Variable",
+	Class = "Class",
+	Module = "Module",
+	Property = "Property",
+	Value = "Value",
+	Enum = "Enum",
+	Snippet = "Snippet",
+	})[vim_item.kind]
+vim_item.menu = ({
+nvim_lsp = "[LSP]",
+treesitter = "[TreeSitter]",
+luasnip = "[LuaSnip]",
+buffer = "[Buffer]",
+})[entry.source.name]
+return vim_item
+end,
+},
+})
+
+-- Setup lspconfig.
+require('lspconfig').solargraph.setup{
+capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+}
+
+require("luasnip/loaders/from_vscode").load({ paths = { "~/.config/nvim/friendly-snippets" } })
+-- require("luasnip/loaders/from_vscode").load()
+-- require("luasnip/loaders/from_vscode").lazy_load()
+
+EOF
+
+
+" -- Enable completion triggered by <c-x><c-o>
+
+lua << EOF
+local nvim_lsp = require('lspconfig')
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+
+local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+-- Mappings.
+local opts = { noremap=true, silent=true }
+
+-- See `:help vim.lsp.*` for documentation on any of the below functions
+buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+end
+
+-- TS setup
+local buf_map = function(bufnr, mode, lhs, rhs, opts)
+    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
+        silent = true,
+    })
+end
+
+nvim_lsp.tsserver.setup({
+    init_options = {
+        preferences = {
+            disableSuggestions = true,
+        },
+    },
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = false
+        client.server_capabilities.document_range_formatting = false
+        local ts_utils = require("nvim-lsp-ts-utils")
+        ts_utils.setup({})
+        ts_utils.setup_client(client)
+        buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
+        buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
+        buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
+        on_attach(client, bufnr)
+    end,
+})
+
+require('lint').linters_by_ft = {
+  javascript = {'eslint'},
+  typescript = {'eslint'}
+}
+
+
+--local null_ls = require("null-ls")
+--   null_ls.setup({
+--      sources = {
+--         null_ls.builtins.diagnostics.tidy,
+--         null_ls.builtins.diagnostics.eslint,
+--         null_ls.builtins.code_actions.eslint,
+--         null_ls.builtins.formatting.prettier
+--      },
+--       on_attach = on_attach
+-- })
+
+-- Stylelint format after save
+ require'lspconfig'.stylelint_lsp.setup{
+   settings = {
+     stylelintplus = {
+       --autoFixOnSave = true,
+       --autoFixOnFormat = true,
+      }
+    }
+  }
+
+require('lspconfig').ansiblels.setup{
+  filetypes = {
+       "yaml.ansible",
+  },
+  settings = {
+    ansible = {
+      ansible = {
+        path = "ansible",
+        useFullyQualifiedCollectionNames = true
+      },
+      ansibleLint = {
+        enabled = true,
+        path = "ansible-lint"
+      },
+      executionEnvironment = {
+        enabled = false
+      },
+      python = {
+        interpreterPath = "python3"
+      },
+      completion = {
+          provideRedirectModules = true,
+          provideModuleOptionAliases = true
+      }
+    },
+  },
+}
+
+require'lspconfig'.terraformls.setup{}
+require'lspconfig'.helm_ls.setup{}
+
+-- bashls
+require 'lspconfig'.bashls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { 'zsh', 'bash', 'sh' },
+}
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'pyright', 'gopls' }
+
+for _, lsp in ipairs(servers) do
+nvim_lsp[lsp].setup {
+	on_attach = on_attach,
+	flags = {
+		debounce_text_changes = 150,
+		}
+	}
+end
+
+-- ["https://json.schemastore.org/yamllint.json"] = "/*",
+require('lspconfig').yamlls.setup {
+  -- other configuration for setup {}
+  on_attach = on_attach,
+  autostart = false,
+  capabilities = capabilities,
+  filetypes = { "yaml" , "yaml.docker-compose" },
+  settings = {
+    yaml = {
+      -- other settings. note this overrides the lspconfig defaults.
+      schemas = {
+        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+        kubernetes = "*.yaml",
+        ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+        ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+        ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
+        ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+        ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+        ["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
+        ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+        ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
+        ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+        ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
+        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
+        ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
+      },
+    },
+  }
+}
+
+EOF
+
+" Display an error message.
+function! s:Warn(msg)
+	echohl ErrorMsg
+	echomsg a:msg
+	echohl NONE
+endfunction
+
+" nnoremap <silent> <Leader>bd :Bclose<CR>
+snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+" snoremap <silent> <S-F8> <cmd>lua vim.lsp.diagnostic.goto_next()<Cr>
+
+" White colors for LSP messages in code
+set termguicolors
+hi DiagnosticError guifg=White
+hi DiagnosticWarn  guifg=White
+hi DiagnosticInfo  guifg=White
+hi DiagnosticHint  guifg=White
+
+if &diff
+    " colorscheme evening
+    " colorscheme molokai
+endif
+nmap <S-F11> <Plug>VimspectorStepOut
+" au BufWritePost * lua require('lint').try_lint()
+nnoremap ,r <cmd>:NERDTreeFind<cr>

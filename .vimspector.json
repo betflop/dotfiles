@@ -1,0 +1,67 @@
+{
+    "configurations": {
+        "runserver":{
+            "adapter": "debugpy",
+            "configuration": {
+                "name": "run the executable",
+                "type": "python",
+                "request": "launch",
+                "python": "${workspaceFolder}/venv/bin/python",
+                "program": "manage.py",
+                "args": [
+                    "runserver"
+                ]
+            },
+            "breakpoints": {
+                "exception": {
+                  "raised": "N",
+                  "caught": "N",
+                  "uncaught": "Y",
+                  "userUnhandled": "N"
+                }
+            }
+        },
+        "file":{
+            "adapter": "debugpy",
+            "configuration": {
+                "name": "run the executable",
+                "type": "python",
+                "request": "launch",
+                "python": "${workspaceFolder}/venv/bin/python3",
+                "program": "${file}"
+            },
+            "breakpoints": {
+                "exception": {
+                  "raised": "N",
+                  "caught": "N",
+                  "uncaught": "Y",
+                  "userUnhandled": "N"
+                }
+            }
+        },
+        "test":{
+            "adapter": "debugpy",
+            "configuration": {
+                "name": "run the test",
+                "module": "pytest",
+                "type": "python",
+                "request": "launch",
+                "python.pythonPath": "/usr/bin/python3",
+                "args": [
+                  "-q",
+                  "${file}"
+                ]
+
+            },
+            "breakpoints": {
+                "exception": {
+                  "raised": "N",
+                  "caught": "N",
+                  "uncaught": "Y",
+                  "userUnhandled": "N"
+                }
+            }
+        }
+
+    }
+}
