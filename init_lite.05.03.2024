@@ -1,0 +1,111 @@
+set encoding=UTF-8
+set number
+set noswapfile
+set relativenumber
+set clipboard=unnamedplus
+set clipboard+=unnamedplus
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+set background=dark
+set colorcolumn=79
+set mouse=a
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set list
+set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\ 
+set confirm
+syntax on
+
+let NERDTreeShowHidden=1
+
+call plug#begin('~/.config/nvim')
+Plug 'Mofiqul/dracula.nvim'
+Plug 'https://github.com/vim-airline/vim-airline'
+Plug 'preservim/NERDTree'
+Plug 'tpope/vim-commentary'
+Plug 'ryanoasis/vim-devicons'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'preservim/vim-indent-guides'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
+Plug 'raimondi/delimitmate'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+call plug#end()
+
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+                \ 'Modified'  :'*',
+                \ 'Staged'    :'✚',
+                \ 'Untracked' :'✭',
+                \ 'Renamed'   :'➜',
+                \ 'Unmerged'  :'═',
+                \ 'Deleted'   :'✖',
+                \ 'Dirty'     :'✗',
+                \ 'Ignored'   :'☒',
+                \ 'Clean'     :'✔︎',
+                \ 'Unknown'   :'?',
+                \ }
+
+nmap <C-e> :NERDTreeToggle<CR>
+noremap '/ :Commentary<CR>
+nnoremap ,<space> :nohlsearch<CR>
+map bn :bn<cr>
+map bp :bp<cr>
+nnoremap bd :bp<cr>:bd #<cr>
+map td :tabclose<cr>
+
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave *.py,*.js,*.jsx,*.ts,*.tsx mkview
+  autocmd BufWinEnter *.py,*.js,*.jsx,*.ts,*.tsx silent! loadview
+augroup END
+
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
+map <Enter> o<ESC>
+
+" Telescope bindings
+nnoremap ,f <cmd>Telescope find_files<cr>
+nnoremap ,g <cmd>Telescope live_grep<cr>
+nnoremap ,b <cmd>Telescope buffers<cr>
+
+lua << EOF
+
+vim.cmd[[colorscheme dracula]]
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "python", "go", "tsx" , "lua" },
+  sync_install = false,
+  auto_install = true,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+EOF
+
+function! s:Warn(msg)
+	echohl ErrorMsg
+	echomsg a:msg
+	echohl NONE
+endfunction
+
+hi DiagnosticError guifg=White
+hi DiagnosticWarn  guifg=White
+hi DiagnosticInfo  guifg=White
+hi DiagnosticHint  guifg=White
+
+if &diff
+    colorscheme dracula
+endif
+nnoremap ,r <cmd>:NERDTreeFind<cr>

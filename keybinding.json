@@ -1,0 +1,143 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "ctrl+e",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "-workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": ", r",
+        "command": "workbench.files.action.showActiveFileInExplorer",
+        "when": "explorerViewletVisible"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "-workbench.action.findInFiles"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "-extension.vim_ctrl+b",
+        "when": "editorTextFocus && vim.active && vim.use<C-b> && !inDebugRepl && vim.mode != 'Insert'"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "cmd+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
+    },
+    {
+    "key": "F2",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus"
+  },
+  {
+    "key": "enter",
+    "command": "-renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus"
+  },
+  {
+    "key": "enter",
+    "command": "list.select",
+    "when": "listFocus && !inputFocus"
+},
+ {
+     "key": "' /",
+     "command": "editor.action.commentLine",
+    "when": "editorTextFocus && vim.active && vim.use<C-b> && !inDebugRepl && vim.mode != 'Insert'"
+    //  "when": "vim.active && vim.mode != 'Insert && editorTextFocus && !editorReadonly"
+ },
+{
+    "key": "cmd+/",
+    "command": "-editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+},
+{
+    "key": "tab",
+    "command": "editor.emmet.action.expandAbbreviation",
+    "when": "config.emmet.triggerExpansionOnTab && editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+},
+{
+    "key": "tab",
+    "command": "-editor.emmet.action.expandAbbreviation",
+    "when": "config.emmet.triggerExpansionOnTab && editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+},
+{
+    "key": ", g",
+    "command": "workbench.action.findInFiles",
+    "when": "editorTextFocus && vim.active && vim.use<C-b> && !inDebugRepl && vim.mode != 'Insert'"
+},
+{
+    "key": "shift+cmd+f",
+    "command": "-workbench.action.findInFiles"
+},
+{
+    "key": ", f",
+    "command": "workbench.action.quickOpen",
+    "when": "editorTextFocus && vim.active && vim.use<C-b> && !inDebugRepl && vim.mode != 'Insert'"
+},
+{
+    "key": "cmd+p",
+    "command": "-workbench.action.quickOpen"
+},
+{
+    "key": "shift+k",
+    "command": "editor.action.showHover",
+    "when": "editorTextFocus"
+},
+{
+    "key": "cmd+k cmd+i",
+    "command": "-editor.action.showHover",
+    "when": "editorTextFocus"
+},
+{
+    "key": "[ d",
+    "command": "editor.action.marker.prevInFiles",
+    "when": "editorFocus"
+},
+{
+    "key": "shift+f8",
+    "command": "-editor.action.marker.prevInFiles",
+    "when": "editorFocus"
+},
+{
+    "key": "] d",
+    "command": "editor.action.marker.nextInFiles",
+    "when": "editorFocus"
+},
+{
+    "key": "f8",
+    "command": "-editor.action.marker.nextInFiles",
+    "when": "editorFocus"
+},
+{
+    "key": "ctrl+o",
+    "command": "workbench.action.navigateBack",
+    "when": "canNavigateBack"
+},
+{
+    "key": "ctrl+-",
+    "command": "-workbench.action.navigateBack",
+    "when": "canNavigateBack"
+},
+{
+    "key": "ctrl+i",
+    "command": "workbench.action.navigateForward",
+    "when": "canNavigateForward"
+},
+{
+    "key": "ctrl+shift+-",
+    "command": "-workbench.action.navigateForward",
+    "when": "canNavigateForward"
+}
+]
