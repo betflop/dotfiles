@@ -21,6 +21,7 @@ set confirm
 syntax on
 
 let NERDTreeShowHidden=1
+let g:indent_guides_enable_on_vim_startup = 1
 
 call plug#begin('~/.config/nvim')
 Plug 'Mofiqul/dracula.nvim'
