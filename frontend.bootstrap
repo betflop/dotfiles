@@ -1,0 +1,10 @@
+npm i -D eslint
+npm i -D --save-exact prettier
+npm i -D eslint-config-prettier
+npm i -D eslint-config-react
+npm i -D eslint-plugin-react
+npm i -D @typescript-eslint/eslint-plugin
+npm i -D @typescript-eslint/parser
+npm i -D stylelint stylelint-config-standard
+npm i -D stylelint stylelint-config-prettier
+npm i -D stylelint-lsp
