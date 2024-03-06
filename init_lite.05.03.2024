@@ -40,20 +40,12 @@ Plug 'raimondi/delimitmate'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-                \ 'Modified'  :'*',
-                \ 'Staged'    :'✚',
-                \ 'Untracked' :'✭',
-                \ 'Renamed'   :'➜',
-                \ 'Unmerged'  :'═',
-                \ 'Deleted'   :'✖',
-                \ 'Dirty'     :'✗',
-                \ 'Ignored'   :'☒',
-                \ 'Clean'     :'✔︎',
-                \ 'Unknown'   :'?',
-                \ }
+let g:NERDTreeGitStatusIndicatorMapCustom = {'Modified'  :'*', 'Staged'    :'✚',
+\ 'Untracked' :'✭', 'Renamed'   :'➜', 'Unmerged'  :'═', 'Deleted'   :'✖',
+\ 'Dirty'     :'✗', 'Ignored'   :'☒', 'Clean'     :'✔︎', 'Unknown'   :'?', }
 
 nmap <C-e> :NERDTreeToggle<CR>
+nnoremap ,r <cmd>:NERDTreeFind<cr>
 noremap '/ :Commentary<CR>
 nnoremap ,<space> :nohlsearch<CR>
 map bn :bn<cr>
@@ -109,4 +101,3 @@ hi DiagnosticHint  guifg=White
 if &diff
     colorscheme dracula
 endif
-nnoremap ,r <cmd>:NERDTreeFind<cr>

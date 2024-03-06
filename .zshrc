@@ -6,6 +6,11 @@ HISTSIZE=10000
 SAVEHIST=10000
 
 
+plugins=(
+    fzf-zsh-plugin
+    zsh-syntax-highlighting
+    git
+)
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -34,6 +39,9 @@ alias l='ls -CF'
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/fzf-zsh-plugin/fzf-settings.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh
+source /home/pk/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+eval "$(direnv hook zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -41,12 +49,6 @@ source /home/pk/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-plugins=(
-    fzf-zsh-plugin
-    zsh-syntax-highlighting
-    git
-)
 
 export PATH="$HOME/.local/bin:$PATH"
 
