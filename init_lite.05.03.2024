@@ -108,7 +108,8 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {'Modified'  :'*', 'Staged'    :'✚
 
 nmap <C-e> :NERDTreeToggle<CR>
 nnoremap ,r <cmd>:NERDTreeFind<cr>
-noremap '/ :Commentary<CR>
+" noremap '/ :Commentary<CR>
+noremap <C-_> :Commentary<CR>
 nnoremap ,<space> :nohlsearch<CR>
 map bn :bn<cr>
 map bp :bp<cr>
@@ -117,9 +118,14 @@ map td :tabclose<cr>
 map <Enter> o<ESC>
 
 " Telescope bindings
-nnoremap ,f <cmd>Telescope find_files<cr>
-nnoremap ,g <cmd>Telescope live_grep<cr>
-nnoremap ,b <cmd>Telescope buffers<cr>
+"
+inoremap jk <esc>
+inoremap kj <esc>
+nnoremap <C-F> <cmd>Telescope live_grep<cr>
+nnoremap <C-N> <cmd>Telescope find_files<cr>
+" nnoremap ,f <cmd>Telescope find_files<cr>
+" nnoremap ,g <cmd>Telescope live_grep<cr>
+" nnoremap ,b <cmd>Telescope buffers<cr>
 
 augroup remember_folds
 
