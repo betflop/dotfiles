@@ -33,10 +33,11 @@ if [ -x /usr/bin/dircolors ]; then
   alias lt='exa --tree --level=2 --long --icons'
 fi
 
+setopt hist_ignore_all_dups
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+# alias l='ls -CF'
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/fzf-zsh-plugin/fzf-settings.zsh
