@@ -1,186 +1,207 @@
+" Устанавливает кодировку по умолчанию для редактора в UTF-8.
 set encoding=UTF-8
+" Включает отображение номеров строк в редакторе.
 set number
+" Отключает создание файлов бэкапа (swapfiles) при редактировании файлов.
 set noswapfile
+" Включает относительные номера строк, что упрощает навигацию внутри файла.
 set relativenumber
+" Устанавливает буфер обмена между Vim и системным буфером обмена.
 set clipboard=unnamedplus
+" Добавляет возможность копировать и вставлять текст между Vim и другими приложениями.
 set clipboard+=unnamedplus
+" Устанавливает метод свертывания кода по отступам.
 set foldmethod=indent
+" Ограничивает глубину свертывания до 10 уровней.
 set foldnestmax=10
+" Отключает автоматическое свертывание блоков кода.
 set nofoldenable
+" Устанавливает начальный уровень свертывания для файлов.
 set foldlevel=2
+" Устанавливает цветовую схему для темного фона.
 set background=dark
+" Устанавливает вертикальную линию, отображающую ограничение длины строки (например, 79 символов).
 set colorcolumn=79
+" Включает поддержку мыши в Vim.
 set mouse=a
+" Включает автоматическую загрузку файловых типов и плагинов, а также автоматическое определение отступов.
 filetype plugin indent on
+" Устанавливает количество пробелов в табуляции.
 set tabstop=4
+" Устанавливает количество пробелов для автоматического отступа.
 set shiftwidth=4
+" Включает использование пробелов вместо табуляции.
 set expandtab
+" Включает отображение невидимых символов, таких как пробелы и табуляции.
 set list
+" Определяет символы для отображения невидимых символов.
 set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\ 
-" set autochdir
+" Запрашивает подтверждение при выполнении некоторых команд, которые могут быть опасными.
+set confirm
+" Включает подсветку синтаксиса.
+syntax on
 
 if (has('termguicolors'))
 	set termguicolors
 endif
 
-let NERDTreeShowHidden=1
-
-inoremap <C-Space> <C-x><C-o>
-imap <buffer> <Nul> <C-Space>
-smap <buffer> <Nul> <C-Space>" filetype plugin on
-
-let g:airline_theme = "molokai"
-
 call plug#begin('~/.config/nvim')
-Plug 'rafamadriz/friendly-snippets'
+Plug 'ellisonleao/gruvbox.nvim'
+" Плагин для темы Dracula, предлагает улучшенный цветовой схеме для Neovim, написанный на Lua.
 Plug 'Mofiqul/dracula.nvim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'L3MON4D3/LuaSnip'
-Plug 'jose-elias-alvarez/null-ls.nvim'
-
-Plug 'https://github.com/vim-airline/vim-airline'
-Plug 'https://github.com/ap/vim-css-color'
-Plug 'preservim/NERDTree'
-Plug 'tpope/vim-commentary'
+" Плагин для vim-airline, который предоставляет настраиваемую строку статуса с множеством возможностей.
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
-
-Plug 'airblade/vim-gitgutter'
+" Нужен для интеграции git vim
 Plug 'tpope/vim-fugitive'
+" Плагин NERDTree, предлагающий мощный файловый менеджер внутри Vim.
+Plug 'preservim/NERDTree'
+" Плагин vim-commentary, позволяющий легко комментировать и раскомментировать строки кода.
+Plug 'tpope/vim-commentary'
+" Плагин vim-devicons, добавляющий иконки к файлам и директориям в NERDTree и других плагинах.
+Plug 'ryanoasis/vim-devicons'
+" Плагин vim-gitgutter, который отображает изменения в файлах, сделанные в Git, в редакторе.
+Plug 'airblade/vim-gitgutter'
+" Плагин vim-bookmarks, предоставляющий удобные закладки для быстрого перехода к определенным местам в файле.
 Plug 'MattesGroeger/vim-bookmarks'
-
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install --frozen-lockfile --production',
-  \ 'for': ['javascript', 'typescript', 'typescriptreact', 'javascriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
-
+" Плагин vim-indent-guides, который добавляет визуальные индикаторы отступов в редакторе.
 Plug 'preservim/vim-indent-guides'
+" Плагин nerdtree-git-plugin, расширяющий функционал NERDTree, добавляя информацию о состоянии Git для файлов.
 Plug 'Xuyuanp/nerdtree-git-plugin'
-
+" Плагин plenary.nvim, обеспечивающий набор утилит и модулей для разработки плагинов для Neovim.
+" Нужен для работы telescope
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+" Плагин telescope.nvim, мощный инструмент для поиска файлов, буферов, команд и т.д. в Neovim.
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
+" Плагин delimitmate, автоматически закрывает парные скобки, кавычки и другие символы.
 Plug 'raimondi/delimitmate'
+" Tree-sitter позволяет редактору понимать синтаксис кода на более глубоком уровне, что улучшает автодополнение, форматирование и другие функции.
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'towolf/vim-helm'
-Plug 'pearofducks/ansible-vim'
-" Plug 'puremourning/vimspector'
-Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
-" Plug 'tell-k/vim-autopep8'
+" ----------------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+" nvim-lspconfig: Предоставляет конфигурацию для Language Server Protocol (LSP) в Neovim
+Plug 'neovim/nvim-lspconfig'
+" nvim-cmp: Автозаполнение для Neovim, поддерживает множество источников
+Plug 'hrsh7th/nvim-cmp'
+" cmp-nvim-lsp: Интеграция LSP с nvim-cmp для автозаполнения
+Plug 'hrsh7th/cmp-nvim-lsp'
+" Добавление плагина Prettier для автоматической форматировки кода в Vim.
+Plug 'prettier/vim-prettier', {
+ \ 'do': 'npm install --frozen-lockfile --production',
+ \ 'for': ['javascript', 'typescript', 'typescriptreact', 'javascriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+" Плагин для просмотра цветов CSS в Vim, позволяющий быстро увидеть, как изменяется цвет.
+Plug 'https://github.com/ap/vim-css-color'
+" Интеграция с отладчиками для различных языков программирования, упрощающая процесс отладки.
+Plug 'puremourning/vimspector'
+" Плагин для статического анализа кода, помогающий обнаруживать ошибки и предупреждения.
 Plug 'mfussenegger/nvim-lint'
-Plug 'hashivim/vim-terraform'
+" Плагин с функционалом, предположительно, связанным с улучшением работы с кодом в Vim.
+Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+" Отображение tab бара сверху
+" Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
+" Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
+" Plug 'romgrk/barbar.nvim'
+Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 call plug#end()
 
-" gggpG
-au FileType python setlocal formatprg=autopep8\ -
-" au FileType javascript setlocal formatprg=prettier\ --parser\ typescript
-if has("autocmd")
-    autocmd BufWritePost *.py silent! !autopep8 -i %
-endif
+map gt :bnext<cr>
+map gT :bprevious<cr>
 
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-                \ 'Modified'  :'*',
-                \ 'Staged'    :'✚',
-                \ 'Untracked' :'✭',
-                \ 'Renamed'   :'➜',
-                \ 'Unmerged'  :'═',
-                \ 'Deleted'   :'✖',
-                \ 'Dirty'     :'✗',
-                \ 'Ignored'   :'☒',
-                \ 'Clean'     :'✔︎',
-                \ 'Unknown'   :'?',
-                \ }
-let g:prettier#autoformat = 1
-let g:prettier#autoformat_require_pragma = 0
-let g:prettier#quickfix_enabled = 0
+let g:airline_powerline_fonts = 1
+let g:airline_theme='onedark'
 
-let g:go_fmt_autosave = 1
-
-let g:vimspector_enable_mappings = 'HUMAN'
-let g:vimspector_base_dir='/Users/pavelkozlov/.config/nvim/vimspector'
+let NERDTreeShowHidden=1
+let g:indent_guides_enable_on_vim_startup = 1
+let g:NERDTreeGitStatusIndicatorMapCustom = {'Modified'  :'*', 'Staged'    :'✚',
+\ 'Untracked' :'✭', 'Renamed'   :'➜', 'Unmerged'  :'═', 'Deleted'   :'✖',
+\ 'Dirty'     :'✗', 'Ignored'   :'☒', 'Clean'     :'✔︎', 'Unknown'   :'?', }
 
 nmap <C-e> :NERDTreeToggle<CR>
-noremap '/ :Commentary<CR>
+nnoremap ,r <cmd>:NERDTreeFind<cr>
+" noremap '/ :Commentary<CR>
+noremap <C-_> :Commentary<CR>
 nnoremap ,<space> :nohlsearch<CR>
-nnoremap <S-F8> :LspStart<CR>
 map bn :bn<cr>
 map bp :bp<cr>
-map bd :bd<cr>
+nnoremap bd :bp<cr>:bd #<cr>
 map td :tabclose<cr>
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:syntastic_check_on_open=1
-let g:user_emmet_leader_key='<tab>'
-" tab + ,
+map <Enter> o<ESC>
+
+" Telescope bindings
+"
+inoremap jk <esc>
+inoremap kj <esc>
+" nnoremap <C-F> <cmd>Telescope live_grep<cr>
+nnoremap <C-g> <cmd>Telescope live_grep<cr>
+" nnoremap <C-N> <cmd>Telescope find_files<cr>
+nnoremap <C-f> <cmd>Telescope find_files<cr>
+" nnoremap ,f <cmd>Telescope find_files<cr>
+" nnoremap ,g <cmd>Telescope live_grep<cr>
+nnoremap <C-b> <cmd>Telescope buffers<cr>
 
 augroup remember_folds
 
-" Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
 
-map <Enter> o<ESC>
-
-" Telescope bindings
-nnoremap ,f <cmd>Telescope find_files<cr>
-nnoremap ,g <cmd>Telescope live_grep<cr>
-nnoremap ,b <cmd>Telescope buffers<cr>
-
-let g:indent_guides_enable_on_vim_startup = 1
-
 lua << EOF
 
+require("bufferline").setup{}
+
 vim.cmd[[colorscheme dracula]]
-vim.cmd [[autocmd BufRead,BufNewFile Docker* set filetype=dockerfile]]
 
--- require('telescope').load_extension('fzf')
-
--- require("telescope").setup { 
-
---     pickers = {
--- 	find_files = {
---             hidden = true
--- 	    },
---         live_grep = {
---             additional_args = function(opts)
---                 return {"--hidden"}
---             end,
---         },
---     },
--- }
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "python", "go", "tsx" , "lua" },
+  sync_install = false,
+  auto_install = true,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
 
 
 EOF
 
+if &diff
+    " colorscheme dracula
+    colorscheme gruvbox
+endif
 
+" Minimal setup
+" ----------------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+
+let g:syntastic_check_on_open=1
+let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_base_dir='~/.config/nvim/vimspector'
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#quickfix_enabled = 0
+let g:user_emmet_leader_key='<tab>'
+
+nmap <S-F11> <Plug>VimspectorStepOut
 
 lua << EOF
--- Set completeopt to have a better completion experience
+
+vim.cmd [[autocmd BufRead,BufNewFile Docker* set filetype=dockerfile]]
+
+-- Отменяет автоматический выбор автодополнения
 vim.o.completeopt = 'menuone,noselect'
 
-local luasnip = require 'luasnip'
-local async = require "plenary.async"
+-- local async = require "plenary.async"
 
+-- Настройка модуля автодополнения cmp
 local cmp = require 'cmp'
 cmp.setup({
 completion = {
 	-- autocomplete = {true}
     autocomplete = { cmp.TriggerEvent.InsertEnter, cmp.TriggerEvent.TextChanged },
-	},
-snippet = {
-	expand = function(args)
-	require('luasnip').lsp_expand(args.body)
-	end,
 	},
 mapping = {
 	['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -193,9 +214,7 @@ mapping = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,
 		},
-
-
- ['<Tab>'] = function(fallback)
+    ['<Tab>'] = function(fallback)
  	if vim.fn.pumvisible() == 1 then
  		vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
  	else
@@ -205,10 +224,6 @@ mapping = {
  	['<S-Tab>'] = function(fallback)
  	if vim.fn.pumvisible() == 1 then
  	    vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
- 	elseif luasnip.expand_or_jumpable() then
- 	    vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
- 	elseif luasnip.jumpable(-1) then
- 	    vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
  	else
  	    fallback()
  	end
@@ -216,8 +231,8 @@ mapping = {
 	},
 sources = {
 	{ name = 'nvim_lsp' },
-	{ name = 'luasnip' },
 	},
+-- То как будет отображаться вариант автодополнения
 formatting = {
 	format = function(entry, vim_item)
 	vim_item.kind = ({
@@ -237,7 +252,6 @@ formatting = {
 vim_item.menu = ({
 nvim_lsp = "[LSP]",
 treesitter = "[TreeSitter]",
-luasnip = "[LuaSnip]",
 buffer = "[Buffer]",
 })[entry.source.name]
 return vim_item
@@ -246,20 +260,10 @@ end,
 })
 
 -- Setup lspconfig.
-require('lspconfig').solargraph.setup{
-capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-}
+-- require('lspconfig').solargraph.setup{
+--capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- }
 
-require("luasnip/loaders/from_vscode").load({ paths = { "~/.config/nvim/friendly-snippets" } })
--- require("luasnip/loaders/from_vscode").load()
--- require("luasnip/loaders/from_vscode").lazy_load()
-
-EOF
-
-
-" -- Enable completion triggered by <c-x><c-o>
-
-lua << EOF
 local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -292,13 +296,6 @@ buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
 end
 
--- TS setup
-local buf_map = function(bufnr, mode, lhs, rhs, opts)
-    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
-        silent = true,
-    })
-end
-
 nvim_lsp.tsserver.setup({
     init_options = {
         preferences = {
@@ -308,12 +305,6 @@ nvim_lsp.tsserver.setup({
     on_attach = function(client, bufnr)
         client.server_capabilities.document_formatting = false
         client.server_capabilities.document_range_formatting = false
-        local ts_utils = require("nvim-lsp-ts-utils")
-        ts_utils.setup({})
-        ts_utils.setup_client(client)
-        buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
-        buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
-        buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
         on_attach(client, bufnr)
     end,
 })
@@ -323,27 +314,15 @@ require('lint').linters_by_ft = {
   typescript = {'eslint'}
 }
 
-
---local null_ls = require("null-ls")
---   null_ls.setup({
---      sources = {
---         null_ls.builtins.diagnostics.tidy,
---         null_ls.builtins.diagnostics.eslint,
---         null_ls.builtins.code_actions.eslint,
---         null_ls.builtins.formatting.prettier
---      },
---       on_attach = on_attach
--- })
-
 -- Stylelint format after save
- require'lspconfig'.stylelint_lsp.setup{
-   settings = {
-     stylelintplus = {
-       --autoFixOnSave = true,
-       --autoFixOnFormat = true,
-      }
-    }
+require'lspconfig'.stylelint_lsp.setup{
+settings = {
+ stylelintplus = {
+   --autoFixOnSave = true,
+   --autoFixOnFormat = true,
   }
+}
+}
 
 require('lspconfig').ansiblels.setup{
   filetypes = {
@@ -428,29 +407,4 @@ require('lspconfig').yamlls.setup {
 
 EOF
 
-" Display an error message.
-function! s:Warn(msg)
-	echohl ErrorMsg
-	echomsg a:msg
-	echohl NONE
-endfunction
 
-" nnoremap <silent> <Leader>bd :Bclose<CR>
-snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
-" snoremap <silent> <S-F8> <cmd>lua vim.lsp.diagnostic.goto_next()<Cr>
-
-" White colors for LSP messages in code
-set termguicolors
-hi DiagnosticError guifg=White
-hi DiagnosticWarn  guifg=White
-hi DiagnosticInfo  guifg=White
-hi DiagnosticHint  guifg=White
-
-if &diff
-    " colorscheme evening
-    " colorscheme molokai
-endif
-nmap <S-F11> <Plug>VimspectorStepOut
-" au BufWritePost * lua require('lint').try_lint()
-nnoremap ,r <cmd>:NERDTreeFind<cr>
