@@ -23,13 +23,13 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
+  # alias ls='ls --color=auto'
   alias dir='dir --color=auto'
   alias vdir='vdir --color=auto'
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
-  alias l='exa -l --icons -a'
+  alias ls='exa -l --icons -a'
   alias lt='exa --tree --level=2 --long --icons'
 fi
 
