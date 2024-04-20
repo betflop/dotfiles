@@ -29,6 +29,8 @@ if [ -x /usr/bin/dircolors ]; then
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
+  alias l='exa -l --icons -a'
+  alias lt='exa --tree --level=2 --long --icons'
 fi
 
 # some more ls aliases
