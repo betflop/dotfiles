@@ -37,6 +37,8 @@ setopt hist_ignore_all_dups
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
+alias nvimdiff='git difftool --tool=nvimdiff'
+alias mc='source /usr/lib/mc/mc-wrapper.sh'
 # alias l='ls -CF'
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -54,4 +56,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$HOME/.local/bin:$PATH"
-
+EDITOR=nvim
