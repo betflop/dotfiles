@@ -63,7 +63,7 @@ Plug 'ryanoasis/vim-devicons'
 " Плагин vim-gitgutter, который отображает изменения в файлах, сделанные в Git, в редакторе.
 Plug 'airblade/vim-gitgutter'
 " Плагин vim-bookmarks, предоставляющий удобные закладки для быстрого перехода к определенным местам в файле.
-Plug 'MattesGroeger/vim-bookmarks'
+" Plug 'MattesGroeger/vim-bookmarks'
 " Плагин vim-indent-guides, который добавляет визуальные индикаторы отступов в редакторе.
 Plug 'preservim/vim-indent-guides'
 " Плагин nerdtree-git-plugin, расширяющий функционал NERDTree, добавляя информацию о состоянии Git для файлов.
@@ -134,9 +134,9 @@ map <Enter> o<ESC>
 inoremap jk <esc>
 inoremap kj <esc>
 " nnoremap <C-F> <cmd>Telescope live_grep<cr>
-nnoremap <C-g> <cmd>Telescope live_grep<cr>
+nnoremap <C-f> <cmd>Telescope live_grep<cr>
 " nnoremap <C-N> <cmd>Telescope find_files<cr>
-nnoremap <C-f> <cmd>Telescope find_files<cr>
+nnoremap <C-g> <cmd>Telescope find_files<cr>
 " nnoremap ,f <cmd>Telescope find_files<cr>
 " nnoremap ,g <cmd>Telescope live_grep<cr>
 nnoremap <C-b> <cmd>Telescope buffers<cr>
@@ -150,8 +150,6 @@ autocmd BufReadPost *
 
 lua << EOF
 
-require("bufferline").setup{}
-
 vim.cmd[[colorscheme dracula]]
 
 require'nvim-treesitter.configs'.setup {
@@ -164,6 +162,7 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+require('bufferline').setup {}
 
 EOF
 
