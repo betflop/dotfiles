@@ -23,6 +23,7 @@
     - fzf
     - ripgrep
     - direnv
+    - lazygit
 
 - name: Install mc
   become: yes
