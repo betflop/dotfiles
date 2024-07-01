@@ -23,7 +23,50 @@
     - fzf
     - ripgrep
     - direnv
-    - lazygit
+    - exa
+    - bat
+
+- name: Create symbolic link from /usr/bin/batcat to ~/.local/bin/bat
+  ansible.builtin.file:
+    src: /usr/bin/batcat
+    dest: "/home/{{ ansible_user }}/.local/bin/bat"
+    state: link
+
+- name: Get the latest lazygit version
+  ansible.builtin.shell: |
+    curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*'
+  register: lazygit_version
+
+- name: Set lazygit version fact
+  set_fact:
+    lazygit_version: "{{ lazygit_version.stdout }}"
+
+- name: Download lazygit
+  ansible.builtin.get_url:
+    url: "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_{{ lazygit_version }}_Linux_x86_64.tar.gz"
+    dest: "/tmp/lazygit.tar.gz"
+
+- name: Extract lazygit
+  ansible.builtin.unarchive:
+    src: "/tmp/lazygit.tar.gz"
+    dest: "/tmp"
+    remote_src: yes
+    extra_opts:
+      - --strip-components=1
+
+- name: Install lazygit
+  ansible.builtin.command:
+    cmd: "install /tmp/lazygit /usr/local/bin"
+    creates: "/usr/local/bin/lazygit"
+
+- name: Clean up
+  ansible.builtin.file:
+    path: "/tmp/lazygit.tar.gz"
+    state: absent
+
+- name: Install zoxide
+  ansible.builtin.shell: |
+    curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 
 - name: Install mc
   become: yes

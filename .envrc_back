@@ -1,2 +1,0 @@
-export VIRTUAL_ENV=$(pwd)/venv
-export PATH=$(pwd)/venv/bin:$PATH
