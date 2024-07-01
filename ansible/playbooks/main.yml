@@ -10,3 +10,5 @@
       tags: neovim
     - role: tmux
       tags: tmux
+    - role: apt
+      tags: apt

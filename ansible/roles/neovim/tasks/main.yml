@@ -24,3 +24,24 @@
     name: pynvim
     executable: pip3
   tags: neovim
+
+- name: Install Vimplug for Neovim
+  become: yes
+  tags: neovim
+  ansible.builtin.shell: |
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+- name: Copy init.vim to Neovim configuration directory
+  # become: yes
+  tags: neovim
+  ansible.builtin.copy:
+    src: "/home/{{ ansible_user }}/dotfiles/init.vim"
+    dest: "/home/{{ ansible_user }}/.config/nvim/init.vim"
+    mode: '0644'
+
+- name: Install plugins using Vimplug
+  become: yes
+  tags: neovim
+  ansible.builtin.shell: |
+    nvim --headless +PlugInstall +qa

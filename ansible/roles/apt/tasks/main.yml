@@ -1,0 +1,65 @@
+---
+- name: Update apt cache
+  become: yes
+  ansible.builtin.apt:
+    update_cache: yes
+  tags: apt
+
+
+- name: Install git, curl, ssh-askpass, lua5.3, xclip, python3-dev, python3-pip, fzf, ripgrep
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  tags: apt
+  loop:
+    - git
+    - curl
+    - ssh-askpass
+    - lua5.3
+    - xclip
+    - python3-dev
+    - python3-pip
+    - fzf
+    - ripgrep
+
+- name: Install mc
+  become: yes
+  ansible.builtin.apt:
+    name: mc
+    state: present
+  tags: apt
+
+- name: Clone Dracula theme repository
+  become: yes
+  ansible.builtin.git:
+    repo: https://github.com/dracula/midnight-commander.git
+    dest: "/home/{{ ansible_user}}/dracula-theme"
+    update: yes
+  tags: apt
+
+- name: Create directory for mc skins
+  become: yes
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user}}/.local/share/mc/skins"
+    state: directory
+    mode: '0755'
+  tags: apt
+
+- name: Create symbolic links for Dracula theme
+  become: yes
+  tags: apt
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "/home/{{ ansible_user}}/dracula-theme/skins/dracula.ini", dest: "/home/{{ ansible_user}}/.local/share/mc/skins/dracula.ini" }
+    - { src: "/home/{{ ansible_user}}/dracula-theme/skins/dracula256.ini", dest: "/home/{{ ansible_user}}/.local/share/mc/skins/dracula256.ini" }
+
+- name: Replace skin setting in Midnight Commander configuration
+  become: yes
+  ansible.builtin.lineinfile:
+    path: "/home/{{ ansible_user}}/.config/mc/ini"
+    regexp: '^skin='  # Найти строку, начинающуюся с 'skin='
+    line: 'skin=dracula256'  # Заменить найденную строку на 'skin=dracula'
