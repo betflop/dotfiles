@@ -11,6 +11,7 @@ plugins=(
     fzf-zsh-plugin
     zsh-syntax-highlighting
     git
+    dotenv
 )
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -40,12 +41,12 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias nvimdiff='git difftool --tool=nvimdiff'
 alias mc='source /usr/lib/mc/mc-wrapper.sh'
-# alias l='ls -CF'
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/fzf-zsh-plugin/fzf-settings.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/pk/.oh-my-zsh/custom/plugins/git/git.plugin.zsh
 
 eval "$(direnv hook zsh)"
 

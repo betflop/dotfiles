@@ -1,0 +1,26 @@
+---
+- name: Add Neovim PPA
+  apt_repository:
+    repo: ppa:neovim-ppa/stable
+    state: present
+  tags: neovim
+
+- name: Install Neovim
+  apt:
+    name: neovim
+    state: present
+  tags: neovim
+
+- name: Ensure Python support for Neovim
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - python3-neovim
+    - python3-pip
+  tags: neovim
+
+- name: Install pynvim
+  pip:
+    name: pynvim
+    executable: pip3
+  tags: neovim

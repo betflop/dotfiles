@@ -1,0 +1,12 @@
+---
+- name: Setup development environment
+  hosts: all
+  become: true
+
+  roles:
+    - role: zsh
+      tags: zsh
+    - role: neovim
+      tags: neovim
+    - role: tmux
+      tags: tmux
