@@ -134,9 +134,9 @@ map <Enter> o<ESC>
 inoremap jk <esc>
 inoremap kj <esc>
 " nnoremap <C-F> <cmd>Telescope live_grep<cr>
-nnoremap <C-f> <cmd>Telescope live_grep<cr>
+nnoremap <C-g> <cmd>Telescope live_grep<cr>
 " nnoremap <C-N> <cmd>Telescope find_files<cr>
-nnoremap <C-g> <cmd>Telescope find_files<cr>
+nnoremap <C-f> <cmd>Telescope find_files<cr>
 " nnoremap ,f <cmd>Telescope find_files<cr>
 " nnoremap ,g <cmd>Telescope live_grep<cr>
 nnoremap <C-b> <cmd>Telescope buffers<cr>
