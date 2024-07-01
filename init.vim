@@ -46,7 +46,6 @@ if (has('termguicolors'))
 endif
 
 call plug#begin('~/.config/nvim')
-Plug 'ellisonleao/gruvbox.nvim'
 " Плагин для темы Dracula, предлагает улучшенный цветовой схеме для Neovim, написанный на Lua.
 Plug 'Mofiqul/dracula.nvim'
 " Плагин для vim-airline, который предоставляет настраиваемую строку статуса с множеством возможностей.
@@ -62,12 +61,8 @@ Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 " Плагин vim-gitgutter, который отображает изменения в файлах, сделанные в Git, в редакторе.
 Plug 'airblade/vim-gitgutter'
-" Плагин vim-bookmarks, предоставляющий удобные закладки для быстрого перехода к определенным местам в файле.
-" Plug 'MattesGroeger/vim-bookmarks'
 " Плагин vim-indent-guides, который добавляет визуальные индикаторы отступов в редакторе.
 Plug 'preservim/vim-indent-guides'
-" Плагин nerdtree-git-plugin, расширяющий функционал NERDTree, добавляя информацию о состоянии Git для файлов.
-Plug 'Xuyuanp/nerdtree-git-plugin'
 " Плагин plenary.nvim, обеспечивающий набор утилит и модулей для разработки плагинов для Neovim.
 " Нужен для работы telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -100,9 +95,6 @@ Plug 'mfussenegger/nvim-lint'
 " Плагин с функционалом, предположительно, связанным с улучшением работы с кодом в Vim.
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 " Отображение tab бара сверху
-" Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
-" Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
-" Plug 'romgrk/barbar.nvim'
 Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 call plug#end()
 
@@ -133,12 +125,8 @@ map <Enter> o<ESC>
 "
 inoremap jk <esc>
 inoremap kj <esc>
-" nnoremap <C-F> <cmd>Telescope live_grep<cr>
 nnoremap <C-g> <cmd>Telescope live_grep<cr>
-" nnoremap <C-N> <cmd>Telescope find_files<cr>
 nnoremap <C-f> <cmd>Telescope find_files<cr>
-" nnoremap ,f <cmd>Telescope find_files<cr>
-" nnoremap ,g <cmd>Telescope live_grep<cr>
 nnoremap <C-b> <cmd>Telescope buffers<cr>
 
 augroup remember_folds

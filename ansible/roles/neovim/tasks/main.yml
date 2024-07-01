@@ -45,3 +45,34 @@
   tags: neovim
   ansible.builtin.shell: |
     nvim --headless +PlugInstall +qa
+
+- name: Install packages using apt
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - terraform-ls
+    - golang
+    - gopls
+    - delve
+    - tidy
+    - nodejs
+
+- name: Install npm packages globally
+  become: yes
+  npm:
+    name: "{{ item }}"
+    global: yes
+  loop:
+    - bash-language-server
+    - pyright
+    - yaml-language-server
+    - typescript
+    - typescript-language-server
+
+- name: Install debugpy Python package
+  become: yes
+  pip:
+    name: debugpy
+    executable: pip3
