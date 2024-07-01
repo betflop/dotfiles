@@ -152,27 +152,27 @@
 
 - name: Add zsh-z plugin source to .zshrc
   ansible.builtin.lineinfile:
-    path: /home/pk/.zshrc
+    path: "/home/{{ ansible_user }}/.zshrc"
     line: 'source /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh'
     insertafter: EOF
     state: present
 
 - name: Add zsh-autosuggestions plugin source to .zshrc
   ansible.builtin.lineinfile:
-    path: /home/pk/.zshrc
+    path: "/home/{{ ansible_user }}/.zshrc"
     line: 'source /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh'
     insertafter: EOF
     state: present
 
 - name: Add git plugin source to .zshrc
   ansible.builtin.lineinfile:
-    path: /home/pk/.zshrc
+    path: "/home/{{ ansible_user }}/.zshrc"
     line: 'source /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/git/git.plugin.zsh'
     insertafter: EOF
     state: present
 
 - name: Source .zshrc
-  shell: source "{{ ansible_env.HOME }}/.zshrc"
+  shell: source ""/home/{{ ansible_user }}/.zshrc"
   args:
     executable: /bin/zsh
   tags: zsh
