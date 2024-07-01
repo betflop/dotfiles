@@ -92,3 +92,10 @@
     dest: "/home/{{ ansible_user }}/.p10k.zsh"
     owner: "{{ ansible_user }}"
     mode: '0644'
+
+- name: Set EDITOR to nvim in Zsh configuration
+  lineinfile:
+    path: "/home/{{ ansible_user }}/.zshrc"
+    regexp: '^export EDITOR='
+    line: 'export EDITOR=nvim'
+    state: present

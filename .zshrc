@@ -66,3 +66,4 @@ if [ -f '/home/pk/yandex-cloud/path.bash.inc' ]; then source '/home/pk/yandex-cl
 # The next line enables shell command completion for yc.
 if [ -f '/home/pk/yandex-cloud/completion.zsh.inc' ]; then source '/home/pk/yandex-cloud/completion.zsh.inc'; fi
 
+source /home/pk/powerlevel10k/powerlevel10k.zsh-theme
