@@ -129,6 +129,48 @@
     - "alias z='zshz 2>&1'"
     - "alias cat=batcat"
 
+- name: Ensure zsh-z plugin is installed
+  ansible.builtin.git:
+    repo: https://github.com/agkozak/zsh-z
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-z"
+    version: master
+  become: yes
+
+- name: Ensure zsh-autosuggestions plugin is installed
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    version: master
+  become: yes
+
+- name: Ensure git plugin is installed
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/git"
+    version: master
+  become: yes
+
+- name: Add zsh-z plugin source to .zshrc
+  ansible.builtin.lineinfile:
+    path: /home/pk/.zshrc
+    line: 'source /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh'
+    insertafter: EOF
+    state: present
+
+- name: Add zsh-autosuggestions plugin source to .zshrc
+  ansible.builtin.lineinfile:
+    path: /home/pk/.zshrc
+    line: 'source /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh'
+    insertafter: EOF
+    state: present
+
+- name: Add git plugin source to .zshrc
+  ansible.builtin.lineinfile:
+    path: /home/pk/.zshrc
+    line: 'source /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/git/git.plugin.zsh'
+    insertafter: EOF
+    state: present
+
 - name: Source .zshrc
   shell: source "{{ ansible_env.HOME }}/.zshrc"
   args:
