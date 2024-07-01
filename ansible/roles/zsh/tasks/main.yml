@@ -99,3 +99,10 @@
     regexp: '^export EDITOR='
     line: 'export EDITOR=nvim'
     state: present
+
+- name: Add direnv hook to Zsh configuration
+  lineinfile:
+    path: "/home/{{ ansible_user }}/.zshrc"
+    regexp: '^eval "$(direnv hook zsh)"'
+    line: 'eval "$(direnv hook zsh)"'
+    state: present
