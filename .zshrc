@@ -5,6 +5,7 @@ HISTFILE=~/.zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 
+setopt share_history
 
 plugins=(
     fzf-zsh-plugin
@@ -57,3 +58,10 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.local/bin:$PATH"
 EDITOR=nvim
+
+# The next line updates PATH for Yandex Cloud CLI.
+if [ -f '/home/pk/yandex-cloud/path.bash.inc' ]; then source '/home/pk/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/home/pk/yandex-cloud/completion.zsh.inc' ]; then source '/home/pk/yandex-cloud/completion.zsh.inc'; fi
+
