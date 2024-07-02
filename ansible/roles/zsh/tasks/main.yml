@@ -44,7 +44,6 @@
       owner: "{{ ansible_user }}"
       group: "{{ ansible_user }}"
       mode: '0644'
-      remote_src: yes
 
 - name: Update font cache
   ansible.builtin.command:
