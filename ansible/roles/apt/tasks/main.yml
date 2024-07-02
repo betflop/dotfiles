@@ -26,16 +26,6 @@
     - eza
     - bat
 
-- name: Clone fzf repository
-  git:
-    repo: 'https://github.com/junegunn/fzf.git'
-    dest: '/home/{{ ansible_user }}/.fzf'
-    version: 'master'
-    force: yes
-  
-- name: Run fzf install script
-  command: /home/{{ ansible_user }}/.fzf/install --all
-  become: yes
   
 - name: Ensure directory for bin exists
   ansible.builtin.file:
