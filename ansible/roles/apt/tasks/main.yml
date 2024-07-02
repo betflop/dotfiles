@@ -36,7 +36,15 @@
 - name: Run fzf install script
   command: /home/{{ ansible_user }}/.fzf/install --all
   become: yes
-
+  
+- name: Ensure directory for bin exists
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.local/bin"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
+    
 - name: Create symbolic link from /usr/bin/batcat to ~/.local/bin/bat
   ansible.builtin.file:
     src: /usr/bin/batcat
