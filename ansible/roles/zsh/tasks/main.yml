@@ -105,9 +105,6 @@
       version: 'master'
       force: yes
 
-- name: Run fzf install script
-  ansible.builtin.command: /home/{{ ansible_user }}/.fzf/install --all
-
 - name: Set FZF_PATH variable in fzf-settings.zsh
   ansible.builtin.lineinfile:
       path: /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/fzf-zsh-plugin/fzf-settings.zsh
@@ -116,7 +113,7 @@
       line: 'FZF_PATH="/home/{{ ansible_user }}/.fzf"'
       state: present
   
-- name: Remove --highlight-line from all files in /home/pk/.fzf/shell/
+- name: Remove --highlight-line from files in /home/pk/.fzf/shell/
   ansible.builtin.replace:
     path: /home/{{ ansible_user }}/.fzf/shell/key-bindings.zsh
     regexp: '--highlight-line'
