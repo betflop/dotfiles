@@ -1,9 +1,9 @@
 ---
 - name: Install Tmux
+  #become: yes
   apt:
     name: tmux
     state: present
-  tags: tmux
 
 - name: Ensure directory for TPM exists
   ansible.builtin.file:
@@ -22,4 +22,3 @@
   copy:
     src: "/home/{{ ansible_user }}/dotfiles/.tmux.conf"
     dest: "/home/{{ ansible_user }}/.tmux.conf"
-  tags: tmux
