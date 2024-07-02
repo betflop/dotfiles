@@ -11,80 +11,73 @@
     shell: /usr/bin/zsh
   tags: zsh
 
-- name: Install git
-  apt:
-    name: git
+- name: Copy ZSHRC configuration
+  copy:
+    src: "/home/{{ ansible_user }}/dotfiles/.zshrc"
+    dest: "/home/{{ ansible_user }}/.zshrc"
+    owner: "{{ ansible_user }}"
+    mode: '0644'
+
+- name: Install required packages
+  ansible.builtin.apt:
+    name: 
+      - fonts-powerline
+      - unzip
+      - python3-pip
+      - fontconfig
+      - fonts-powerline
     state: present
-  tags: zsh
 
 - name: Install Oh My Zsh
   git:
     repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh"
   tags: zsh
 
-- name: Copy .zshrc from Oh My Zsh template
-  copy:
-    src: "{{ ansible_env.HOME }}/.oh-my-zsh/templates/zshrc.zsh-template"
-    dest: "{{ ansible_env.HOME }}/.zshrc"
-    remote_src: yes
-  tags: zsh
+- name: Install powerline-status using pip
+  ansible.builtin.command:
+      cmd: pip3 install powerline-status --break-system-packages
 
-- name: Set ZSH variable in .zshrc
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    regexp: '^export ZSH='
-    line: 'export ZSH="{{ ansible_env.HOME }}/.oh-my-zsh"'
-    state: present
-  tags: zsh
+- name: Ensure the .fonts directory exists in the user's home directory
+  ansible.builtin.file:
+      path: /home/{{ ansible_user }}/.fonts
+      state: directory
+      mode: '0755'
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+  become: false
+
+- name: Copy custom fonts to the .fonts directory
+  ansible.builtin.copy:
+      src: "/home/{{ ansible_user }}/dotfiles/fonts"
+      dest: /home/{{ ansible_user }}/.fonts/
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: '0644'
+      remote_src: yes
+  become: true
+
+- name: Update font cache
+  ansible.builtin.command:
+    cmd: fc-cache -fv
 
 - name: Clone fzf-zsh-plugin
   git:
     repo: 'https://github.com/unixorn/fzf-zsh-plugin.git'
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/fzf-zsh-plugin"
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/fzf-zsh-plugin"
+    force: yes
   tags: zsh
 
 - name: Clone zsh-syntax-highlighting
   git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
   tags: zsh
-
-- name: Ensure plugins are set in .zshrc
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    regexp: '^plugins='
-    line: 'plugins=(git fzf-zsh-plugin zsh-syntax-highlighting)'
-    state: present
-  tags: zsh
-
-- name: Source .zshrc
-  shell: source "{{ ansible_env.HOME }}/.zshrc"
-  args:
-    executable: /bin/zsh
-  tags: zsh
-
-- name: Ensure git is installed
-  apt:
-    name: git
-    state: present
 
 - name: Clone Powerlevel10k repository
   git:
     repo: 'https://github.com/romkatv/powerlevel10k.git'
-    dest: '/home{{ ansible_user }}/powerlevel10k'
-
-- name: Ensure ~/.zshrc exists
-  file:
-    path: "/home/{{ ansible_user }}/.zshrc"
-    state: touch
-
-- name: Add Powerlevel10k to Zsh configuration
-  lineinfile:
-    path: "/home/{{ ansible_user }}/.zshrc"
-    regexp: '^source /home/{{ ansible_user }}/powerlevel10k/powerlevel10k.zsh-theme'
-    line: 'source /home/{{ ansible_user }}/powerlevel10k/powerlevel10k.zsh-theme'
-    state: present
+    dest: '/home/{{ ansible_user }}/powerlevel10k'
 
 - name: Copy Powerlevel10k configuration
   copy:
@@ -92,42 +85,6 @@
     dest: "/home/{{ ansible_user }}/.p10k.zsh"
     owner: "{{ ansible_user }}"
     mode: '0644'
-
-- name: Set EDITOR to nvim in Zsh configuration
-  lineinfile:
-    path: "/home/{{ ansible_user }}/.zshrc"
-    regexp: '^export EDITOR='
-    line: 'export EDITOR=nvim'
-    state: present
-
-- name: Add direnv hook to Zsh configuration
-  lineinfile:
-    path: "/home/{{ ansible_user }}/.zshrc"
-    regexp: '^eval "$(direnv hook zsh)"'
-    line: 'eval "$(direnv hook zsh)"'
-    state: present
-
-- name: Add aliases to .zshrc
-  lineinfile:
-    path: "/home/{{ ansible_user }}/.zshrc"
-    line: "{{ item }}"
-    create: yes
-    state: present
-  loop:
-    - "alias dir='dir --color=auto'"
-    - "alias egrep='egrep --color=auto'"
-    - "alias fgrep='fgrep --color=auto'"
-    - "alias grep='grep --color=auto'"
-    - "alias la='ls -A'"
-    - "alias ll='ls -alF'"
-    - "alias ls='exa -l --icons -a'"
-    - "alias lt='exa --tree --level=2 --long --icons'"
-    - "alias mc='source /usr/lib/mc/mc-wrapper.sh'"
-    - "alias nvimdiff='git difftool --tool=nvimdiff'"
-    - "alias vdir='vdir --color=auto'"
-    - "alias which-command='whence'"
-    - "alias z='zshz 2>&1'"
-    - "alias cat=batcat"
 
 - name: Ensure zsh-z plugin is installed
   ansible.builtin.git:
@@ -149,30 +106,22 @@
     dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/git"
     version: master
   become: yes
+  
+- name: Clone fzf repository
+  ansible.builtin.git:
+      repo: 'https://github.com/junegunn/fzf.git'
+      dest: '/home/{{ ansible_user }}/.fzf'
+      version: 'master'
 
-- name: Add zsh-z plugin source to .zshrc
+- name: Run fzf install script
+  ansible.builtin.command: /home/{{ ansible_user }}/.fzf/install --all
+
+- name: Set FZF_PATH variable in fzf-settings.zsh
   ansible.builtin.lineinfile:
-    path: "/home/{{ ansible_user }}/.zshrc"
-    line: 'source /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh'
-    insertafter: EOF
-    state: present
-
-- name: Add zsh-autosuggestions plugin source to .zshrc
-  ansible.builtin.lineinfile:
-    path: "/home/{{ ansible_user }}/.zshrc"
-    line: 'source /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh'
-    insertafter: EOF
-    state: present
-
-- name: Add git plugin source to .zshrc
-  ansible.builtin.lineinfile:
-    path: "/home/{{ ansible_user }}/.zshrc"
-    line: 'source /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/git/git.plugin.zsh'
-    insertafter: EOF
-    state: present
-
-- name: Source .zshrc
-  shell: source ""/home/{{ ansible_user }}/.zshrc"
-  args:
-    executable: /bin/zsh
-  tags: zsh
+      path: /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/fzf-zsh-plugin/fzf-settings.zsh
+      insertbefore: BOF
+      regexp: '^FZF_PATH='
+      line: 'FZF_PATH="/home/{{ ansible_user }}/.fzf"'
+      state: present
+  
+  

@@ -23,8 +23,19 @@
     - fzf
     - ripgrep
     - direnv
-    - exa
+    - eza
     - bat
+
+- name: Clone fzf repository
+  git:
+    repo: 'https://github.com/junegunn/fzf.git'
+    dest: '/home/{{ ansible_user }}/.fzf'
+    version: 'master'
+  become: false
+  
+- name: Run fzf install script
+  command: /home/{{ ansible_user }}/.fzf/install --all
+  become: false
 
 - name: Create symbolic link from /usr/bin/batcat to ~/.local/bin/bat
   ansible.builtin.file:
@@ -54,15 +65,15 @@
     extra_opts:
       - --strip-components=1
 
-- name: Install lazygit
-  ansible.builtin.command:
-    cmd: "install /tmp/lazygit /usr/local/bin"
-    creates: "/usr/local/bin/lazygit"
+#- name: Install lazygit
+#  ansible.builtin.command:
+#    cmd: "install /tmp/lazygit /usr/local/bin"
+#    creates: "/usr/local/bin/lazygit"
 
-- name: Clean up
-  ansible.builtin.file:
-    path: "/tmp/lazygit.tar.gz"
-    state: absent
+#- name: Clean up
+#  ansible.builtin.file:
+#    path: "/tmp/lazygit.tar.gz"
+#    state: absent
 
 - name: Install zoxide
   ansible.builtin.shell: |

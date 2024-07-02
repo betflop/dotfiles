@@ -11,7 +11,6 @@ plugins=(
     fzf-zsh-plugin
     zsh-syntax-highlighting
     git
-    dotenv
 )
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -41,12 +40,13 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias nvimdiff='git difftool --tool=nvimdiff'
 alias mc='source /usr/lib/mc/mc-wrapper.sh'
+alias cat='batcat'
 
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/pk/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/fzf-zsh-plugin/fzf-settings.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /home/pk/.oh-my-zsh/custom/plugins/git/git.plugin.zsh
+source /home/pk/.oh-my-zsh/plugins/git/git.plugin.zsh
 
 eval "$(direnv hook zsh)"
 
@@ -58,6 +58,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$HOME/.local/bin:$PATH"
+export FZF_PATH="$HOME/.fzf"
 EDITOR=nvim
 
 # The next line updates PATH for Yandex Cloud CLI.
@@ -67,3 +68,5 @@ if [ -f '/home/pk/yandex-cloud/path.bash.inc' ]; then source '/home/pk/yandex-cl
 if [ -f '/home/pk/yandex-cloud/completion.zsh.inc' ]; then source '/home/pk/yandex-cloud/completion.zsh.inc'; fi
 
 source /home/pk/powerlevel10k/powerlevel10k.zsh-theme
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
