@@ -43,7 +43,6 @@
       mode: '0755'
       owner: "{{ ansible_user }}"
       group: "{{ ansible_user }}"
-  become: false
 
 - name: Copy custom fonts to the .fonts directory
   ansible.builtin.copy:
@@ -53,7 +52,6 @@
       group: "{{ ansible_user }}"
       mode: '0644'
       remote_src: yes
-  become: true
 
 - name: Update font cache
   ansible.builtin.command:
@@ -96,28 +94,24 @@
     repo: https://github.com/agkozak/zsh-z
     dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-z"
     version: master
-  become: yes
 
 - name: Ensure zsh-autosuggestions plugin is installed
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-autosuggestions
     dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
     version: master
-  become: yes
 
 - name: Ensure git plugin is installed
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/git"
     version: master
-  become: yes
   
 - name: Clone fzf repository
   ansible.builtin.git:
       repo: 'https://github.com/junegunn/fzf.git'
       dest: '/home/{{ ansible_user }}/.fzf'
       version: 'master'
-      force: yes
 
 - name: Run fzf install script
   ansible.builtin.command: /home/{{ ansible_user }}/.fzf/install --all
@@ -135,7 +129,6 @@
     path: /home/{{ ansible_user }}/.fzf/shell/key-bindings.zsh
     regexp: '--highlight-line'
     replace: ''
-    backup: yes
 
 - name: Change default shell to Zsh for user
   user:
