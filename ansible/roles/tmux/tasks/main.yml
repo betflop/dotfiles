@@ -7,7 +7,7 @@
 
 - name: Ensure directory for TPM exists
   ansible.builtin.file:
-    path: "/home/{{ ansible_user }}/.tmux/plugins"
+    path: "/home/{{ ansible_user }}/.tmux/plugins/tpm"
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
@@ -23,13 +23,3 @@
     src: "/home/{{ ansible_user }}/dotfiles/.tmux.conf"
     dest: "/home/{{ ansible_user }}/.tmux.conf"
   tags: tmux
-
-- name: Install tmux plugins using tpm
-  ansible.builtin.shell: |
-    "/home/{{ ansible_user }}/.tmux/plugins/tpm/bin/install_plugins"
-  args:
-    executable: /bin/bash
-    creates: "/home/{{ ansible_user }}/.tmux/plugins/tpm/installed"
-  environment:
-    TMUX_PLUGIN_MANAGER_PATH: "/home/{{ ansible_user }}/.tmux/plugins/tpm"
-    TMUX_PLUGIN_MANAGER_PATH_INSTALL: "/home/{{ ansible_user }}/.tmux/plugins/tpm"
