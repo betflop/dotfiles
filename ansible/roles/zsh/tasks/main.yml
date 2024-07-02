@@ -139,4 +139,7 @@
     replace: ''
     backup: yes
 
-  
+- name: Change default shell to Zsh for user
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
