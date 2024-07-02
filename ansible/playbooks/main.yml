@@ -1,9 +1,8 @@
 ---
 - name: Setup development environment
   hosts: all
-  become: true
-  
-      
+#  become: true
+   
   vars:
     FZF_PATH: "/home/{{ ansible_user }}/.fzf"
 
