@@ -1,5 +1,13 @@
 {
     "configurations": {
+        "golang": {
+              "adapter": "delve",
+              "filetypes": [ "go" ],
+              "configuration": {
+                "request": "launch",
+                "program": "${file}"
+              }
+            },
         "runserver":{
             "adapter": "debugpy",
             "configuration": {
