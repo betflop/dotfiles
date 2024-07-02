@@ -27,6 +27,10 @@
   ansible.builtin.command:
       cmd: pip3 install pynvim --break-system-packages
       
+- name: Install venv
+  ansible.builtin.command:
+      cmd: pip3 install --upgrade virtualenv --break-system-packages
+
 - name: Install debugpy
   ansible.builtin.command:
       cmd: pip3 install debugpy --break-system-packages     
