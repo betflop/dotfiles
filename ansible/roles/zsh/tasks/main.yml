@@ -120,6 +120,7 @@
       repo: 'https://github.com/junegunn/fzf.git'
       dest: '/home/{{ ansible_user }}/.fzf'
       version: 'master'
+      force: yes
 
 - name: Run fzf install script
   ansible.builtin.command: /home/{{ ansible_user }}/.fzf/install --all
