@@ -3,13 +3,6 @@
   apt:
     name: zsh
     state: present
-  tags: zsh
-
-- name: Change default shell to zsh for the current user
-  become: yes
-  user:
-    name: "{{ ansible_user }}"
-    shell: /usr/bin/zsh
 
 - name: Copy ZSHRC configuration
   copy:
@@ -67,7 +60,6 @@
   git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
     dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-  tags: zsh
 
 - name: Ensure directory for Powerlevel10k exists
   ansible.builtin.file:
@@ -130,7 +122,8 @@
     regexp: '--highlight-line'
     replace: ''
 
-- name: Change default shell to Zsh for user
+- name: Change default shell to zsh for the current user
+  become: yes
   user:
     name: "{{ ansible_user }}"
-    shell: /bin/zsh
+    shell: /usr/bin/zsh
