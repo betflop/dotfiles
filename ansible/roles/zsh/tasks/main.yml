@@ -28,10 +28,10 @@
     state: present
 
 - name: Install Oh My Zsh
+  become: yes
   git:
     repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
     dest: "/home/{{ ansible_user }}/.oh-my-zsh"
-  tags: zsh
 
 - name: Install powerline-status using pip
   ansible.builtin.command:
