@@ -23,6 +23,7 @@
     - eza
     - bat
     - mc
+    - htop
 
   
 - name: Ensure directory for bin exists
