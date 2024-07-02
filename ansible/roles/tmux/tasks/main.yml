@@ -1,6 +1,6 @@
 ---
 - name: Install Tmux
-  #become: yes
+  become: yes
   apt:
     name: tmux
     state: present
