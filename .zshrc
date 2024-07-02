@@ -40,7 +40,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias nvimdiff='git difftool --tool=nvimdiff'
 alias mc='source /usr/lib/mc/mc-wrapper.sh'
-alias cat='batcat'
 
 source /home/pk/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/pk/.oh-my-zsh/custom/plugins/fzf-zsh-plugin/fzf-settings.zsh
