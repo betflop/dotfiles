@@ -1,28 +1,20 @@
 ---
-- name: Add Neovim PPA key
-  apt_key:
-    url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x55F96FCF8231B6DD"
-    state: present
-
 - name: Add Neovim PPA repository
+  become: true
   apt_repository:
     repo: "ppa:neovim-ppa/stable"
     state: present
 
 - name: Update APT package cache
+  become: true
   apt:
     update_cache: yes
 
 - name: Install Neovim
+  become: true
   apt:
     name: neovim
     state: present
-
-- name: Install Neovim
-  apt:
-    name: neovim
-    state: present
-  tags: neovim
 
 - name: Ensure Python support for Neovim
   apt:
