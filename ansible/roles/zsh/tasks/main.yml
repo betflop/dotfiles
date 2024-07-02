@@ -28,7 +28,6 @@
     state: present
 
 - name: Install Oh My Zsh
-  become: yes
   git:
     repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
     dest: "/home/{{ ansible_user }}/.oh-my-zsh"
@@ -65,7 +64,6 @@
     repo: 'https://github.com/unixorn/fzf-zsh-plugin.git'
     dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/fzf-zsh-plugin"
     force: yes
-  tags: zsh
 
 - name: Clone zsh-syntax-highlighting
   git:
