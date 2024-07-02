@@ -20,29 +20,47 @@
   tags: neovim
 
 - name: Install pynvim
-  pip:
-    name: pynvim
-    executable: pip3
-  tags: neovim
+  ansible.builtin.command:
+      cmd: pip3 install pynvim --break-system-packages
+      
+- name: Install debugpy
+  ansible.builtin.command:
+      cmd: pip3 install debugpy --break-system-packages     
+
+- name: Ensure directory for Neovim exists
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.local/share/nvim/site/autoload/"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
 
 - name: Install Vimplug for Neovim
-  become: yes
   tags: neovim
   ansible.builtin.shell: |
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    curl -fLo /home/{{ ansible_user }}/.local/share/nvim/site/autoload/plug.vim \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+- name: Ensure directory for Neovim exists
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.config/nvim/"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
+
 - name: Copy init.vim to Neovim configuration directory
-  # become: yes
   tags: neovim
   ansible.builtin.copy:
     src: "/home/{{ ansible_user }}/dotfiles/init.vim"
     dest: "/home/{{ ansible_user }}/.config/nvim/init.vim"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: '0644'
 
 - name: Install plugins using Vimplug
-  become: yes
   tags: neovim
+  become_user: "{{ ansible_user }}"
   ansible.builtin.shell: |
     nvim --headless +PlugInstall +qa
 
@@ -52,12 +70,13 @@
     name: "{{ item }}"
     state: present
   loop:
-    - terraform-ls
+#    - terraform-ls
     - golang
     - gopls
     - delve
     - tidy
     - nodejs
+    - npm
 
 - name: Install npm packages globally
   become: yes
@@ -71,8 +90,3 @@
     - typescript
     - typescript-language-server
 
-- name: Install debugpy Python package
-  become: yes
-  pip:
-    name: debugpy
-    executable: pip3

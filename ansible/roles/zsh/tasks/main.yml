@@ -74,6 +74,14 @@
     dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
   tags: zsh
 
+- name: Ensure directory for Powerlevel10k exists
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/powerlevel10k"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
+
 - name: Clone Powerlevel10k repository
   git:
     repo: 'https://github.com/romkatv/powerlevel10k.git'
@@ -124,4 +132,11 @@
       line: 'FZF_PATH="/home/{{ ansible_user }}/.fzf"'
       state: present
   
+- name: Remove --highlight-line from all files in /home/pk/.fzf/shell/
+  ansible.builtin.replace:
+    path: /home/{{ ansible_user }}/.fzf/shell/key-bindings.zsh
+    regexp: '--highlight-line'
+    replace: ''
+    backup: yes
+
   

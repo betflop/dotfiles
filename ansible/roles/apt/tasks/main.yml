@@ -86,6 +86,14 @@
     state: present
   tags: apt
 
+- name: Ensure directory for Powerlevel10k exists
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user}}/dracula-theme"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
+
 - name: Clone Dracula theme repository
   become: yes
   ansible.builtin.git:

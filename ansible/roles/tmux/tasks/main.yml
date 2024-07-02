@@ -5,14 +5,15 @@
     state: present
   tags: tmux
 
-- name: Install git (required for tpm)
-  become: yes
-  ansible.builtin.apt:
-    name: git
-    state: present
+- name: Ensure directory for TPM exists
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.tmux/plugins"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
 
 - name: Clone tpm (Tmux Plugin Manager) repository
-  become: yes
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: "/home/{{ ansible_user }}/.tmux/plugins/tpm"
