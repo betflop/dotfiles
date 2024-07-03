@@ -13,6 +13,7 @@
     mode: '0644'
 
 - name: Install required packages
+  become: yes
   ansible.builtin.apt:
     name: 
       - fonts-powerline
