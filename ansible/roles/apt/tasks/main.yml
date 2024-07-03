@@ -60,6 +60,7 @@
     dest: "/tmp"
 
 - name: Install lazygit
+  become: yes
   ansible.builtin.command:
     cmd: "install /tmp/lazygit /usr/local/bin"
     creates: "/usr/local/bin/lazygit"
