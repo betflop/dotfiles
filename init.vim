@@ -98,8 +98,6 @@ Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 call plug#end()
 
-map gt :bnext<cr>
-map gT :bprevious<cr>
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='onedark'
@@ -112,14 +110,13 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {'Modified'  :'*', 'Staged'    :'✚
 
 nmap <C-e> :NERDTreeToggle<CR>
 nnoremap ,r <cmd>:NERDTreeFind<cr>
-" noremap '/ :Commentary<CR>
 noremap <C-_> :Commentary<CR>
 nnoremap ,<space> :nohlsearch<CR>
-map bn :bn<cr>
-map bp :bp<cr>
-nnoremap bd :bp<cr>:bd #<cr>
-map td :tabclose<cr>
-map <Enter> o<ESC>
+map bn :bnext<cr>
+map bp :bprevious<cr>
+nnoremap bd :bn<cr>:bd #<cr>
+" map td :tabclose<cr>
+" map <Enter> o<ESC>
 
 " Telescope bindings
 "
@@ -153,6 +150,7 @@ require'nvim-treesitter.configs'.setup {
 require('bufferline').setup {}
 
 EOF
+
 
 if &diff
     " colorscheme dracula
