@@ -5,7 +5,7 @@ set number
 " Отключает создание файлов бэкапа (swapfiles) при редактировании файлов.
 set noswapfile
 " Включает относительные номера строк, что упрощает навигацию внутри файла.
-set relativenumber
+"set relativenumber
 " Устанавливает буфер обмена между Vim и системным буфером обмена.
 set clipboard=unnamedplus
 " Добавляет возможность копировать и вставлять текст между Vim и другими приложениями.
@@ -120,11 +120,11 @@ nnoremap bd :bn<cr>:bd #<cr>
 
 " Telescope bindings
 "
-inoremap jk <esc>
-inoremap kj <esc>
+" inoremap jk <esc>
+" inoremap kj <esc>
 nnoremap <C-g> <cmd>Telescope live_grep<cr>
 nnoremap <C-f> <cmd>Telescope find_files<cr>
-nnoremap <C-b> <cmd>Telescope buffers<cr>
+nnoremap <C-h> <cmd>Telescope buffers<cr>
 
 augroup remember_folds
 
@@ -359,6 +359,7 @@ nvim_lsp[lsp].setup {
 		}
 	}
 end
+
 
 -- ["https://json.schemastore.org/yamllint.json"] = "/*",
 require('lspconfig').yamlls.setup {
