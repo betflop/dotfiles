@@ -115,11 +115,11 @@
       line: 'FZF_PATH="/home/{{ ansible_user }}/.fzf"'
       state: present
   
-- name: Remove --highlight-line from files in /home/pk/.fzf/shell/
+- name: Remove --wrap-sign and --highlight-line from files in /home/{{ ansible_user }}/.fzf/shell/
   ansible.builtin.replace:
     path: /home/{{ ansible_user }}/.fzf/shell/key-bindings.zsh
-    regexp: '--highlight-line'
-    replace: ''
+    regexp: "--wrap-sign '.*?'|--highlight-line '.*?'|--highlight-line"
+    replace: ""
 
 - name: Change default shell to zsh for the current user
   become: yes
