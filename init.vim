@@ -249,6 +249,7 @@ end,
 --capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- }
 
+
 local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -392,5 +393,4 @@ require('lspconfig').yamlls.setup {
 }
 
 EOF
-
 
