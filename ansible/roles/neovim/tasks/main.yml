@@ -2,7 +2,7 @@
 - name: Add Neovim PPA repository
   become: true
   apt_repository:
-    repo: "ppa:neovim-ppa/stable"
+    repo: "ppa:neovim-ppa/unstable"
     state: present
 
 - name: Update APT package cache
@@ -22,18 +22,19 @@
   with_items:
     - python3-neovim
     - python3-pip
+  become: yes
 
 - name: Install pynvim
   ansible.builtin.command:
-      cmd: pip3 install pynvim --break-system-packages
+      cmd: pip3 install pynvim
       
 - name: Install venv
   ansible.builtin.command:
-      cmd: pip3 install --upgrade virtualenv --break-system-packages
+      cmd: pip3 install --upgrade virtualenv
 
 - name: Install debugpy
   ansible.builtin.command:
-      cmd: pip3 install debugpy --break-system-packages     
+      cmd: pip3 install debugpy     
 
 - name: Ensure directory for Neovim exists
   ansible.builtin.file:
@@ -60,7 +61,7 @@
 - name: Copy init.vim to Neovim configuration directory
   tags: neovim
   ansible.builtin.copy:
-    src: "/home/{{ ansible_user }}/dotfiles/init.vim"
+    src: "/home/pk/dotfiles/init.vim"
     dest: "/home/{{ ansible_user }}/.config/nvim/init.vim"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
@@ -78,7 +79,6 @@
     name: "{{ item }}"
     state: present
   loop:
-#    - terraform-ls
     - golang
     - gopls
     - delve

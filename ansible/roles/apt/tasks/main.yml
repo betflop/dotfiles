@@ -20,7 +20,6 @@
     - fzf
     - ripgrep
     - direnv
-    - eza
     - bat
     - mc
     - htop
@@ -112,3 +111,34 @@
     path: "/home/{{ ansible_user}}/.config/mc/ini"
     regexp: '^skin='  # Найти строку, начинающуюся с 'skin='
     line: 'skin=dracula256'  # Заменить найденную строку на 'skin=dracula'
+
+- name: Download exa binary zip
+  ansible.builtin.get_url:
+    url: https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
+    dest: /tmp/exa-linux-x86_64-0.9.0.zip
+    mode: '0644'
+    force: yes
+
+- name: Unzip exa binary
+  ansible.builtin.unarchive:
+    src: /tmp/exa-linux-x86_64-0.9.0.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Move exa binary to /usr/local/bin
+  ansible.builtin.command:
+    cmd: mv /tmp/exa-linux-x86_64 /usr/local/bin/exa
+  args:
+    creates: /usr/local/bin/exa
+  become: yes
+
+- name: Set executable permissions for exa
+  ansible.builtin.file:
+    path: /usr/local/bin/exa
+    mode: '0755'
+  become: yes
+
+- name: Remove unnecessary files
+  ansible.builtin.file:
+    path: /tmp/exa-linux-x86_64-0.9.0.zip
+    state: absent

@@ -7,10 +7,16 @@
 
 - name: Copy ZSHRC configuration
   copy:
-    src: "/home/{{ ansible_user }}/dotfiles/.zshrc"
+    src: "/home/pk/dotfiles/.zshrc"
     dest: "/home/{{ ansible_user }}/.zshrc"
     owner: "{{ ansible_user }}"
     mode: '0644'
+
+- name: Replace paths in the file
+  ansible.builtin.replace:
+    path: "/home/{{ ansible_user }}/.zshrc"
+    regexp: "/home/pk/"
+    replace: "/home/{{ ansible_user }}/"
 
 - name: Install required packages
   become: yes
@@ -29,7 +35,7 @@
 
 - name: Install powerline-status using pip
   ansible.builtin.command:
-      cmd: pip3 install powerline-status --break-system-packages
+      cmd: pip3 install powerline-status
 
 - name: Ensure the .fonts directory exists in the user's home directory
   ansible.builtin.file:
@@ -41,7 +47,7 @@
 
 - name: Copy custom fonts to the .fonts directory
   ansible.builtin.copy:
-      src: "/home/{{ ansible_user }}/dotfiles/fonts"
+      src: "/home/pk/dotfiles/fonts"
       dest: /home/{{ ansible_user }}/.fonts/
       owner: "{{ ansible_user }}"
       group: "{{ ansible_user }}"
@@ -77,7 +83,7 @@
 
 - name: Copy Powerlevel10k configuration
   copy:
-    src: "/home/{{ ansible_user }}/dotfiles/.p10k.zsh"
+    src: "/home/pk/dotfiles/.p10k.zsh"
     dest: "/home/{{ ansible_user }}/.p10k.zsh"
     owner: "{{ ansible_user }}"
     mode: '0644'
@@ -118,7 +124,7 @@
 - name: Remove --wrap-sign and --highlight-line from files in /home/{{ ansible_user }}/.fzf/shell/
   ansible.builtin.replace:
     path: /home/{{ ansible_user }}/.fzf/shell/key-bindings.zsh
-    regexp: "--wrap-sign '.*?'|--highlight-line '.*?'|--highlight-line"
+    regexp: "--wrap-sign '.*?'|--highlight-line '.*?'|--highlight-line|--scheme=history"
     replace: ""
 
 - name: Change default shell to zsh for the current user

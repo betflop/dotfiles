@@ -11,14 +11,15 @@ all:
 	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --ask-become-pass
 
 apt: 
-	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags apt --ask-become-pass
+	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags apt
 
 zsh: 
-	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags zsh --ask-become-pass
+	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags zsh
 	
 tmux: 
-	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags tmux --ask-become-pass
+	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags tmux
+	# @ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags tmux --ask-become-pass
 
 neovim: 
-	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags neovim --ask-become-pass
+	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags neovim
 

@@ -20,5 +20,5 @@
 
 - name: Copy tmux configuration
   copy:
-    src: "/home/{{ ansible_user }}/dotfiles/.tmux.conf"
+    src: "/home/pk/dotfiles/.tmux.conf"
     dest: "/home/{{ ansible_user }}/.tmux.conf"

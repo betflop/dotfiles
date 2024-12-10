@@ -1,5 +1,5 @@
 npm i -D eslint
-npm i -D --save-exact prettier
+npm i -D prettier
 npm i -D eslint-config-prettier
 npm i -D eslint-config-react
 npm i -D eslint-plugin-react

@@ -4,6 +4,7 @@ set encoding=UTF-8
 set number
 " Отключает создание файлов бэкапа (swapfiles) при редактировании файлов.
 set noswapfile
+
 " Включает относительные номера строк, что упрощает навигацию внутри файла.
 "set relativenumber
 " Устанавливает буфер обмена между Vim и системным буфером обмена.
@@ -114,7 +115,7 @@ noremap <C-_> :Commentary<CR>
 nnoremap ,<space> :nohlsearch<CR>
 map bn :bnext<cr>
 map bp :bprevious<cr>
-nnoremap bd :bn<cr>:bd #<cr>
+nnoremap bd :bp<cr>:bd #<cr>
 " map td :tabclose<cr>
 " map <Enter> o<ESC>
 
@@ -134,6 +135,23 @@ autocmd BufReadPost *
      \ endif
 
 lua << EOF
+require('telescope').setup{
+  defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--hidden',
+-- игнорирует все из .gitignore 
+      '--unrestricted',
+    },
+   file_ignore_patterns = {
+   "node_modules", "build", "dist", "yarn.lock", ".next/"
+   },
+}}
 
 vim.cmd[[colorscheme dracula]]
 
@@ -148,9 +166,7 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require('bufferline').setup {}
-
 EOF
-
 
 if &diff
     " colorscheme dracula
