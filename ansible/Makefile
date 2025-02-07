@@ -18,7 +18,6 @@ zsh:
 	
 tmux: 
 	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags tmux
-	# @ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags tmux --ask-become-pass
 
 neovim: 
 	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags neovim

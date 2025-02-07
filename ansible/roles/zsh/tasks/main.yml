@@ -35,7 +35,7 @@
 
 - name: Install powerline-status using pip
   ansible.builtin.command:
-      cmd: pip3 install powerline-status
+      cmd: pip3 install powerline-status --break-system-packages
 
 - name: Ensure the .fonts directory exists in the user's home directory
   ansible.builtin.file:

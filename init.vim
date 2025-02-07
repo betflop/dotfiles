@@ -40,6 +40,8 @@ set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
 " Запрашивает подтверждение при выполнении некоторых команд, которые могут быть опасными.
 set confirm
 " Включает подсветку синтаксиса.
+set conceallevel=1
+
 syntax on
 
 if (has('termguicolors'))
@@ -47,6 +49,7 @@ if (has('termguicolors'))
 endif
 
 call plug#begin('~/.config/nvim')
+Plug 'epwalsh/obsidian.nvim'
 " Плагин для темы Dracula, предлагает улучшенный цветовой схеме для Neovim, написанный на Lua.
 Plug 'Mofiqul/dracula.nvim'
 " Плагин для vim-airline, который предоставляет настраиваемую строку статуса с множеством возможностей.
@@ -366,7 +369,20 @@ require 'lspconfig'.bashls.setup {
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'pyright', 'gopls' }
+local servers = { 'gopls' }
+
+nvim_lsp.pyright.setup({
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "off",
+                diagnosticSeverityOverrides = {
+                    reportOptionalMemberAccess = "none",
+                },
+            },
+        },
+    },
+})
 
 for _, lsp in ipairs(servers) do
 nvim_lsp[lsp].setup {
@@ -407,6 +423,75 @@ require('lspconfig').yamlls.setup {
     },
   }
 }
+
+require("obsidian").setup(
+{
+  -- A list of workspace names, paths, and configuration overrides.
+  -- If you use the Obsidian app, the 'path' of a workspace should generally be
+  -- your vault root (where the `.obsidian` folder is located).
+  -- When obsidian.nvim is loaded by your plugin manager, it will automatically set
+  -- the workspace to the first workspace in the list whose `path` is a parent of the
+  -- current markdown file being edited.
+  workspaces = {
+    {
+      name = "personal",
+      path = "/home/pk/Documents/obsidian",
+    },
+  },
+
+ ui = {
+    enable = true,  -- set to false to disable all additional syntax features
+    update_debounce = 200,  -- update delay after a text change (in milliseconds)
+    max_file_length = 5000,  -- disable UI features for files with more than this many lines
+    -- Define how various check-boxes are displayed
+    checkboxes = {
+      -- NOTE: the 'char' value has to be a single character, and the highlight groups are defined below.
+      [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+      ["x"] = { char = "", hl_group = "ObsidianDone" },
+      [">"] = { char = "", hl_group = "ObsidianRightArrow" },
+      ["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
+      ["!"] = { char = "", hl_group = "ObsidianImportant" },
+      -- Replace the above with this if you don't have a patched font:
+      -- [" "] = { char = "☐", hl_group = "ObsidianTodo" },
+      -- ["x"] = { char = "✔", hl_group = "ObsidianDone" },
+
+      -- You can also add more custom ones...
+    },
+    -- Use bullet marks for non-checkbox lists.
+    bullets = { char = "•", hl_group = "ObsidianBullet" },
+    external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+    -- Replace the above with this if you don't have a patched font:
+    -- external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+    reference_text = { hl_group = "ObsidianRefText" },
+    highlight_text = { hl_group = "ObsidianHighlightText" },
+    tags = { hl_group = "ObsidianTag" },
+    block_ids = { hl_group = "ObsidianBlockID" },
+    hl_groups = {
+      -- The options are passed directly to `vim.api.nvim_set_hl()`. See `:help nvim_set_hl`.
+      ObsidianTodo = { bold = true, fg = "#f78c6c" },
+      ObsidianDone = { bold = true, fg = "#89ddff" },
+      ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
+      ObsidianTilde = { bold = true, fg = "#ff5370" },
+      ObsidianImportant = { bold = true, fg = "#d73128" },
+      ObsidianBullet = { bold = true, fg = "#89ddff" },
+      ObsidianRefText = { underline = true, fg = "#c792ea" },
+      ObsidianExtLinkIcon = { fg = "#c792ea" },
+      ObsidianTag = { italic = true, fg = "#89ddff" },
+      ObsidianBlockID = { italic = true, fg = "#89ddff" },
+      ObsidianHighlightText = { bg = "#75662e" },
+    },
+  },
+  mappings = {
+    -- Smart action depending on context, either follow link or toggle checkbox.
+    ["<cr>"] = {
+      action = function()
+        return require("obsidian").util.smart_action()
+      end,
+      opts = { buffer = true, expr = true },
+    }
+  },
+  }
+)
 
 EOF
 
