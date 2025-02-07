@@ -49,6 +49,9 @@ if (has('termguicolors'))
 endif
 
 call plug#begin('~/.config/nvim')
+Plug 'folke/noice.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'rcarriga/nvim-notify'
 Plug 'epwalsh/obsidian.nvim'
 " Плагин для темы Dracula, предлагает улучшенный цветовой схеме для Neovim, написанный на Lua.
 Plug 'Mofiqul/dracula.nvim'
@@ -492,6 +495,8 @@ require("obsidian").setup(
   },
   }
 )
+
+require("noice").setup()
 
 EOF
 
