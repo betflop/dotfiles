@@ -39,9 +39,10 @@ set list
 set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\ 
 " Запрашивает подтверждение при выполнении некоторых команд, которые могут быть опасными.
 set confirm
-" Включает подсветку синтаксиса.
+
 set conceallevel=1
 
+" Включает подсветку синтаксиса.
 syntax on
 
 if (has('termguicolors'))
@@ -52,12 +53,13 @@ call plug#begin('~/.config/nvim')
 Plug 'folke/noice.nvim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'rcarriga/nvim-notify'
+
 Plug 'epwalsh/obsidian.nvim'
 " Плагин для темы Dracula, предлагает улучшенный цветовой схеме для Neovim, написанный на Lua.
 Plug 'Mofiqul/dracula.nvim'
 " Плагин для vim-airline, который предоставляет настраиваемую строку статуса с множеством возможностей.
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " Нужен для интеграции git vim
 Plug 'tpope/vim-fugitive'
 " Плагин NERDTree, предлагающий мощный файловый менеджер внутри Vim.
@@ -496,7 +498,7 @@ require("obsidian").setup(
   }
 )
 
-require("noice").setup()
+require("noice").setup({})
 
 EOF
 
