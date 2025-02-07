@@ -60,6 +60,9 @@ Plug 'Mofiqul/dracula.nvim'
 " Плагин для vim-airline, который предоставляет настраиваемую строку статуса с множеством возможностей.
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
+Plug 'nvim-lualine/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+Plug 'nvim-tree/nvim-web-devicons'
 " Нужен для интеграции git vim
 Plug 'tpope/vim-fugitive'
 " Плагин NERDTree, предлагающий мощный файловый менеджер внутри Vim.
@@ -499,6 +502,6 @@ require("obsidian").setup(
 )
 
 require("noice").setup({})
-
+require('lualine').setup()
 EOF
 
