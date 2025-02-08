@@ -50,9 +50,9 @@ if (has('termguicolors'))
 endif
 
 call plug#begin('~/.config/nvim')
-Plug 'folke/noice.nvim'
-Plug 'MunifTanjim/nui.nvim'
-Plug 'rcarriga/nvim-notify'
+" Plug 'folke/noice.nvim'
+" Plug 'MunifTanjim/nui.nvim'
+" Plug 'rcarriga/nvim-notify'
 
 Plug 'epwalsh/obsidian.nvim'
 " Плагин для темы Dracula, предлагает улучшенный цветовой схеме для Neovim, написанный на Lua.
@@ -83,7 +83,7 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
 " Плагин delimitmate, автоматически закрывает парные скобки, кавычки и другие символы.
 Plug 'raimondi/delimitmate'
 " Tree-sitter позволяет редактору понимать синтаксис кода на более глубоком уровне, что улучшает автодополнение, форматирование и другие функции.
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 
 " ----------------------------------------------------------------------------
 " ----------------------------------------------------------------------------
@@ -165,7 +165,6 @@ require('telescope').setup{
 }}
 
 vim.cmd[[colorscheme dracula]]
-
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "python", "go", "tsx" , "lua" },
   sync_install = false,
@@ -501,7 +500,8 @@ require("obsidian").setup(
   }
 )
 
-require("noice").setup({})
+-- require("noice").setup({})
 require('lualine').setup()
+
 EOF
 
