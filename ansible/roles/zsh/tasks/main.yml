@@ -110,7 +110,8 @@
   ansible.builtin.git:
       repo: 'https://github.com/junegunn/fzf.git'
       dest: '/home/{{ ansible_user }}/.fzf'
-      version: 'master'
+      version: 'v0.55.0'
+      # version: 'master'
       force: yes
 
 - name: Set FZF_PATH variable in fzf-settings.zsh

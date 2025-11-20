@@ -14,7 +14,7 @@ apt:
 	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags apt
 
 zsh: 
-	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags zsh
+	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags zsh --ask-become-pass
 	
 tmux: 
 	@ansible-playbook -i $(INVENTORY) $(PLAYBOOK) --tags tmux
