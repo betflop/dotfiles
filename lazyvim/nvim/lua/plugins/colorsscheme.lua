@@ -1,0 +1,14 @@
+-- return {
+--   -- add gruvbox
+--   { "tomasiser/vim-code-dark" },
+--   { "dracula/vim" },
+--
+--   -- Configure LazyVim to load gruvbox
+--   {
+--     "LazyVim/LazyVim",
+--     opts = {
+--       -- colorscheme = "dracula",
+--       -- colorscheme = "vim-code-dark",
+--     },
+--   },
+-- }
