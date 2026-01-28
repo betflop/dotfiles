@@ -8,3 +8,8 @@ vim.keymap.set("n", "<leader>xi", function()
   vim.diagnostic.config({ virtual_text = not current })
   print("Virtual text:", not current and "Включён" or "Отключён")
 end, { desc = "Toggle inline LSP errors" })
+
+vim.keymap.set("n", "<leader>fc", function()
+  vim.cmd("cd %:p:h")
+  print("cwd → " .. vim.fn.getcwd())
+end, { desc = "cd to current file dir" })

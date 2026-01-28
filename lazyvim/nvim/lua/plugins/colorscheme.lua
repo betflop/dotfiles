@@ -1,15 +1,10 @@
 return {
-  -- add gruvbox
-  { "tomasiser/vim-code-dark" },
-  { "dracula/vim" },
-
-  -- Configure LazyVim to load gruvbox
-  {
-    "LazyVim/LazyVim",
-
-    opts = {
-      -- colorscheme = "dracula",
-      -- colorscheme = "vim-code-dark",
+  "folke/tokyonight.nvim",
+  opts = {
+    transparent = true,
+    styles = {
+      sidebars = "transparent",
+      floats = "transparent",
     },
   },
 }
